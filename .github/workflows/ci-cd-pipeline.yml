@@ -18,6 +18,9 @@ jobs:
         with:
           node-version: '14'
           
+      - name: List directory contents
+        run: ls    
+        
       - name: Set working directory
         run: cd xandredurant/DOE522_FA1
         
