@@ -17,12 +17,6 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '14'
-          
-      - name: List directory contents
-        run: ls    
-        
-      - name: Set working directory
-        run: cd xandredurant/DOE522_FA1
         
       - name: Install dependencies
         run: npm install
@@ -34,7 +28,7 @@ jobs:
         run: npm test
       
       - name: Deploy to staging
-        run: ./scripts/deploy.sh
+        run: scripts/deploy.sh
         env:
           ENVIRONMENT: staging
           
