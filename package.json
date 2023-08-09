@@ -1,0 +1,15 @@
+{
+  "name": "doe522-fa1",
+  "version": "1.0.0",
+  "description": "Sample project for DOE522 Formative Assessment 1",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"No tests available\"",
+    "build": "echo \"No build process specified\""
+  },
+  "author": "XandreDurant",
+  "license": "ISC",
+  "dependencies": {
+  }
+}
