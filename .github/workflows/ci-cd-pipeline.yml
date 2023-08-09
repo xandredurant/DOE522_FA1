@@ -20,9 +20,11 @@ jobs:
       
       - name: Install dependencies
         run: npm install
+        working-directory: ./DOE522_FA1/DOE522_FA1
       
       - name: Build
         run: npm run build
+        working-directory: ./DOE522_FA1/DOE522_FA1
       
       - name: Run tests
         run: npm test
