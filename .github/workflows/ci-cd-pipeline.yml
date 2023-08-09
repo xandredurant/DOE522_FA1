@@ -39,4 +39,4 @@ jobs:
           status: failure
           message: 'Build or deployment failed'
         env:
-          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }} 
