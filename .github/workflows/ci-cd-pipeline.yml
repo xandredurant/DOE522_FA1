@@ -32,11 +32,9 @@ jobs:
         env:
           ENVIRONMENT: staging
           
-      - name: Send Slack notification on failure
+      - name: Send Teams notification on failure
         if: ${{ failure() }}
-        uses: rtCamp/action-slack-notify@v2
-        with:
-          status: failure
-          message: 'Build or deployment failed'
-        env:
-          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }} 
+        run: |
+         curl -H "Content-Type: application/json" -d '{
+           "text": "Build or deployment failed. Status: '"${{ job.status }}"'"
+         }' ${{ secrets.TEAMS_WEBHOOK_URL }}
