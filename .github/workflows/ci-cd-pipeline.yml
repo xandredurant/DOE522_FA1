@@ -30,8 +30,8 @@ jobs:
       - name: Deploy to staging
         run: ./scripts/deploy.sh
         env:
-        
           ENVIRONMENT: staging
+          
       - name: Send Slack notification on failure
         if: ${{ failure() }}
         uses: rtCamp/action-slack-notify@v2
