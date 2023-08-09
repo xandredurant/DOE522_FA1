@@ -17,14 +17,15 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '14'
-      
+          
+      - name: Set working directory
+        run: cd DOE522_FA1/DOE522_FA1
+        
       - name: Install dependencies
         run: npm install
-        working-directory: ./DOE522_FA1/DOE522_FA1
       
       - name: Build
         run: npm run build
-        working-directory: ./DOE522_FA1/DOE522_FA1
       
       - name: Run tests
         run: npm test
