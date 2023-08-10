@@ -37,13 +37,13 @@ jobs:
       ENVIRONMENT: staging
 
   - script: |
-    if [ "$(Agent.JobStatus)" = "Succeeded" ]; then
-      echo "Build and deployment succeeded."
-    else
-      echo "Build or deployment failed. Status: $(Agent.JobStatus)"
-      curl -H "Content-Type: application/json" -d '{
-        "text": "Build or deployment failed. Status: '"$(Agent.JobStatus)"'"
-      }' $TEAMS_WEBHOOK_URL
-    fi
+      if [ "$(Agent.JobStatus)" = "Succeeded" ]; then
+        echo "Build and deployment succeeded."
+      else
+        echo "Build or deployment failed. Status: $(Agent.JobStatus)"
+        curl -H "Content-Type: application/json" -d '{
+          "text": "Build or deployment failed. Status: '"$(Agent.JobStatus)"'"
+        }' $TEAMS_WEBHOOK_URL
+      fi
   displayName: 'Send Teams notification on failure'
 
