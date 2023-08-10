@@ -4,12 +4,11 @@ trigger:
 pr:
 - none
 
-pool:
-  vmImage: 'ubuntu-latest'
+pool: DOE522_FA1_Agent
 
 variables:
-  TEAMS_WEBHOOK_URL: <https://ctucareerco.webhook.office.com/webhookb2/6a90f95b-a10c-4d62-af46-3b0a4d0219cd@f5ea3467-a1df-4d7e-a894-9a0c66d9b19e/IncomingWebhook/97865309347c49ffac01de604a8fb396/18d59f42-3214-45a0-a2f2-116ed6904fc9>
-  
+  TEAMS_WEBHOOK_URL: https://ctucareerco.webhook.office.com/webhookb2/6a90f95b-a10c-4d62-af46-3b0a4d0219cd@f5ea3467-a1df-4d7e-a894-9a0c66d9b19e/IncomingWebhook/97865309347c49ffac01de604a8fb396/18d59f42-3214-45a0-a2f2-116ed6904fc9
+
 jobs:
 - job: BuildTestDeploy
   steps:
