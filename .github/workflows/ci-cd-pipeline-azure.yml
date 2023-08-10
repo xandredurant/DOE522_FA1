@@ -14,11 +14,6 @@ jobs:
   steps:
   - checkout: self
 
-  - script: |
-      curl -sL https://deb.nodesource.com/setup_14.x | bash -
-      apt-get install -y nodejs
-    displayName: 'Install Node.js'
-
   - script: npm install
     displayName: 'Install dependencies'
     
