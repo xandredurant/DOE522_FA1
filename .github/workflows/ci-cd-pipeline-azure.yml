@@ -15,10 +15,10 @@ jobs:
   steps:
   - checkout: self
       
-  - task: UseNode@2
+  - task: NodeTool@2
     inputs:
-      versionSpec: '14'
-      installationPath: $(Agent.ToolsDirectory)/node
+      versionSpec: '14.x'
+      displayName: 'Install Node.js'
 
   - script: npm install
     displayName: 'Install dependencies'
