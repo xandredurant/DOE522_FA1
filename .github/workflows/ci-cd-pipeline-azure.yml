@@ -29,9 +29,8 @@ jobs:
     displayName: 'Run tests'
     
   - script: |
-      chmod +x scripts/deploy.sh
-      scripts/deploy.sh
-    displayName: 'Grant execute permission to deploy.sh and deploy to staging'
+      scripts\deploy.sh
+    displayName: 'Execute deploy.sh'
     env:
       ENVIRONMENT: staging
 
