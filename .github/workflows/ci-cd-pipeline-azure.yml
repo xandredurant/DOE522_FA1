@@ -15,8 +15,9 @@ jobs:
   - checkout: self
     
   - script: |
-      curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
-      sudo apt-get install -y nodejs
+      Invoke-WebRequest -Uri https://nodejs.org/dist/v14.17.5/node-v14.17.5-x64.msi -OutFile node.msi
+      Start-Process -Wait -FilePath msiexec -ArgumentList "/i node.msi /qn"
+      Remove-Item node.msi
     displayName: 'Install Node.js'
 
   - script: npm install
