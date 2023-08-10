@@ -20,6 +20,10 @@ jobs:
         Invoke-WebRequest -Uri https://nodejs.org/dist/v14.17.5/node-v14.17.5-x64.msi -OutFile node.msi
         Start-Process msiexec.exe -Wait -ArgumentList "/i node.msi /qn"
       }
+      else {
+        $npmPath = (Get-Command npm).Source
+        Invoke-Expression "$npmPath install"
+      }
     displayName: 'Install Node.js if not installed'
 
   - script: npm install
