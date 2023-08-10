@@ -7,6 +7,9 @@ pr:
 pool:
   vmImage: 'ubuntu-latest'
 
+variables:
+  TEAMS_WEBHOOK_URL: <https://ctucareerco.webhook.office.com/webhookb2/6a90f95b-a10c-4d62-af46-3b0a4d0219cd@f5ea3467-a1df-4d7e-a894-9a0c66d9b19e/IncomingWebhook/97865309347c49ffac01de604a8fb396/18d59f42-3214-45a0-a2f2-116ed6904fc9>
+  
 jobs:
 - job: BuildTestDeploy
   steps:
@@ -34,10 +37,13 @@ jobs:
       ENVIRONMENT: staging
 
   - script: |
-      ifeq ($(Agent.JobStatus), Succeeded)
-      then
-        echo "Build and deployment succeeded."
-      else
-        echo "Build or deployment failed. Status: $(Agent.JobStatus)"
-      fi
-    displayName: 'Send Teams notification on failure'
+    if [ "$(Agent.JobStatus)" = "Succeeded" ]; then
+      echo "Build and deployment succeeded."
+    else
+      echo "Build or deployment failed. Status: $(Agent.JobStatus)"
+      curl -H "Content-Type: application/json" -d '{
+        "text": "Build or deployment failed. Status: '"$(Agent.JobStatus)"'"
+      }' $TEAMS_WEBHOOK_URL
+    fi
+  displayName: 'Send Teams notification on failure'
+
