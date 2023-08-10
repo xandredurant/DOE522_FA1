@@ -13,10 +13,6 @@ jobs:
 - job: BuildTestDeploy
   steps:
   - checkout: self
- 
-  - script: |
-      Import-Module Microsoft.PowerShell.Security
-    displayName: 'Import PowerShell module'
     
   - script: |
       curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
