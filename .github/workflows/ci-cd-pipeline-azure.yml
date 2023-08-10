@@ -15,10 +15,10 @@ jobs:
   steps:
   - checkout: self
       
-  - task: NodeTool@2
-    inputs:
-      versionSpec: '14.x'
-      displayName: 'Install Node.js'
+  - script: |
+      curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+      sudo apt-get install -y nodejs
+    displayName: 'Install Node.js'
 
   - script: npm install
     displayName: 'Install dependencies'
