@@ -14,17 +14,10 @@ jobs:
   steps:
   - checkout: self
 
-  - powershell: |
-      $nodePath = Get-Command node -ErrorAction SilentlyContinue
-      if ($nodePath -eq $null) {
-        Invoke-WebRequest -Uri https://nodejs.org/dist/v14.17.5/node-v14.17.5-x64.msi -OutFile node.msi
-        Start-Process msiexec.exe -Wait -ArgumentList "/i node.msi /qn"
-      }
-      else {
-        $npmPath = (Get-Command npm).Source
-        Invoke-Expression "$npmPath install"
-      }
-    displayName: 'Install Node.js if not installed'
+  - task: NodeTool@0
+    inputs:
+      versionSpec: '16.x'
+    displayName: 'Install Node.js'
 
   - script: npm install
     displayName: 'Install dependencies'
