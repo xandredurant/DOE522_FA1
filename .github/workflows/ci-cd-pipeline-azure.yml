@@ -13,6 +13,11 @@ jobs:
 - job: BuildTestDeploy
   steps:
   - checkout: self
+      
+  - script: |
+      curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+      sudo apt-get install -y nodejs
+    displayName: 'Install Node.js'
 
   - script: npm install
     displayName: 'Install dependencies'
@@ -31,14 +36,12 @@ jobs:
       ENVIRONMENT: staging
 
   - script: |
-      if ($env:Agent_JobStatus -eq "Succeeded") {
-        Write-Output "Build and deployment succeeded."
-      } else {
-        Write-Output "Build or deployment failed. Status: $env:Agent_JobStatus"
-        Invoke-RestMethod -Method Post -Uri $env:TEAMS_WEBHOOK_URL -ContentType 'application/json' -Body @"
-        {
-          "text": "Build or deployment failed. Status: $($env:Agent_JobStatus)"
-        }
-        "@
-      }
-    displayName: 'Send Teams notification on failure'
+      if [ "$(Agent.JobStatus)" = "Succeeded" ]; then
+        echo "Build and deployment succeeded."
+      else
+        echo "Build or deployment failed. Status: $(Agent.JobStatus)"
+        curl -H "Content-Type: application/json" -d '{
+          "text": "Build or deployment failed. Status: '"$(Agent.JobStatus)"'"
+        }' $TEAMS_WEBHOOK_URL
+      fi
+  displayName: 'Send Teams notification on failure'
