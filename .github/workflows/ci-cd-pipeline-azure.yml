@@ -1,0 +1,43 @@
+trigger:
+- main
+
+pr:
+- none
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+jobs:
+- job: BuildTestDeploy
+  steps:
+  - checkout: self
+      
+  - task: UseNode@2
+    inputs:
+      versionSpec: '14'
+      installationPath: $(Agent.ToolsDirectory)/node
+
+  - script: npm install
+    displayName: 'Install dependencies'
+    
+  - script: npm run build
+    displayName: 'Build'
+    
+  - script: npm test
+    displayName: 'Run tests'
+    
+  - script: |
+      chmod +x scripts/deploy.sh
+      scripts/deploy.sh
+    displayName: 'Grant execute permission to deploy.sh and deploy to staging'
+    env:
+      ENVIRONMENT: staging
+
+  - script: |
+      ifeq ($(Agent.JobStatus), Succeeded)
+      then
+        echo "Build and deployment succeeded."
+      else
+        echo "Build or deployment failed. Status: $(Agent.JobStatus)"
+      fi
+    displayName: 'Send Teams notification on failure'
